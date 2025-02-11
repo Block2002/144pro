@@ -9,15 +9,15 @@ from PURVIMUSIC.core.call import PURVI
 from PURVIMUSIC.utils import bot_sys_stats
 from PURVIMUSIC.utils.decorators.language import language
 from PURVIMUSIC.utils.inline import supp_markup
-from config import BANNED_USERS
+from config import BANNED_USERS, PING_IMG_URL
 
 
-@app.on_message(filters.command("ping", prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & ~BANNED_USERS)
+@app.on_message(filters.command(["ping", "alive"]) & ~BANNED_USERS)
 @language
 async def ping_com(client, message: Message, _):
     start = datetime.now()
-    response = await message.reply_video(
-        video="https://telegra.ph/file/fd3793e6768bda5d244d7-ddef84eb6d37e8d11a.jpg",
+    response = await message.reply_photo(
+        photo=PING_IMG_URL,
         caption=_["ping_1"].format(app.mention),
     )
     pytgping = await PURVI.ping()
